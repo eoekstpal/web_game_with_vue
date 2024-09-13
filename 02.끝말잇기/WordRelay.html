@@ -8,20 +8,31 @@
 </head>
 <body>
     <div id="root">
-        <div>{{ word }}</div>
-        <form v-on:submit="onSubmitForm">
-            <input type="text" ref="answer" v-model="value">
-            <button type="submit">입력</button>
-        </form>
-        <div>{{ result }}</div>
+        <word-relay start-word="하이"></word-relay>  
+        <!-- 케밥케이스사용 아래 자바스크립트에서는 캐멀케이스사용하면 알아서 변환해줌-->
+        <word-relay start-word="멍게"></word-relay>
     </div>
-    <script>
-        const app = new Vue({
-            el: '#root',
-            data: {
-                word: '제로초',
-                result: '',
-                value: '',
+    <script> // 컴포넌트는 인스턴스 보다는 위
+            // 스크립트는 div#root 보다는 아래
+        Vue.component('word-relay', {
+            template: `
+            <div>
+                <div>{{ word }}</div>
+                <form v-on:submit="onSubmitForm">
+                    <input type="text" ref="answer" v-model="value">
+                    <button type="submit">입력</button>
+                </form>
+                <div>{{ result }}</div>
+            <div>
+            `,
+            props: ['startWord'],
+            data() {
+                return { // 컴포넌트에서는 data를 객체형식x, 함수로 만들어야됨
+                    // 컴포넌트 - 여러번 사용하는 것을 전제로함 (컴포넌트마다 달라야함) -> 새로운 객체를 만들어서 리턴하는 형태
+                    word: this.startWord,
+                    result: '',
+                    value: '',
+                }; 
             },
             methods: {
                 onSubmitForm(e) {
@@ -39,6 +50,11 @@
                 }
             }
         })
+    </script>
+    <script>
+        const app = new Vue({
+            el: '#root',
+        });
     </script>
 </body>
 </html>
