@@ -28,11 +28,13 @@
                 onSubmitForm(e) {
                     e.preventDefault();
                     if(this.first * this.second === parseInt(this.value)) {
+                        // this.value가 text로 입력되기 때문에 parseInt 해줌
                         this.result = "정답";
                         this.first= Math.ceil(Math.random()*9);
                         this.second= Math.ceil(Math.random()*9);
                         this.value = '';
-                        this.$refs.answer.focus()
+                        this.$refs.answer.focus() // input을 클릭하지 않아도 커서가 계속 포커스됨, 
+                        // ref 남용하는 것은 좋지 않음
                     } else {
                         this.result = "오답";
                         this.value = '';
