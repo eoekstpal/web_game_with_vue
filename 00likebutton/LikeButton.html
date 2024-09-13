@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div v-if="liked">좋아요 눌렀음</div> <!-- v-:"" -> "" data나 method에 접근가능 -->
+        <button v-else v-on:click="onClickButton">like</button>
+        <!-- if/else 적용조건: 형제 태그이면서 인접해야 함-->
+
+        <!--singlePageApplication을 만들때 -> 주소 변화 x
+        하나의 페이지에서 모든 걸 해야함 -> 기존 코딩된 부분이 계속 바뀜
+        어떤 부분이 바뀌는지 파악, 데이터로써 관리하는게 제일 중요 
+
+        프론트에서 중요한 것: 화면과 데이터를 일치시키는 것이 중요 -> vue가 반은 해줘서 편하다(react도)
+        vue는 데이터 중심으로 사고해야함
+        -->
+    </div>
+</body>
+<script>
+    const app = new Vue({ // app = vue의 instance
+        el: '#root', // id:root를 el 속성으로 view가 통제
+        data: { // data를 넣으면 화면 부분이 알아서 바뀜
+            liked: false, // 좋아요 클릭 여부를 판단하는 데이터 
+                        // = 바뀌는 값 -> 데이터로 만듬 (데이터를 관리)
+        },
+        methods: { 
+            onClickButton() {
+                this.liked = true; // this -> data를 가리킴 (this.liked = data.liked)
+            },
+        },
+    });
+</script>
+</html>
+
